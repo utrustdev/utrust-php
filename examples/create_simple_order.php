@@ -1,13 +1,13 @@
 <?php
+    require("src/Client.php");
+
+    use Utrust\Client;
+
     // Api key for Utrust Test store (sandbox)
     const API_KEY = 'u_test_api_5541f83d-6550-4a05-b34e-617445d2682d';
 
-    require_once __DIR__ . "/vendor/autoload.php";
-
-    use Utrust\ApiRequest;
-
     // Init Utrust API
-    $utrust_api = new ApiRequest(API_KEY, 'sandbox');
+    $utrust_client = new Client(API_KEY, 'sandbox');
 
     // Build order data
     $order_data = array (
@@ -40,7 +40,8 @@
     );
 
     // Create Order
-    $result = $api->execute('post', 'stores/orders', $body );
+    $result = $utrust_client->execute('post', 'stores/orders', $body );
+    var_dump($result);
 
     if ( isset( $result->data->attributes->redirect_url ) ) {
         echo $result->data->attributes->redirect_url;
@@ -48,6 +49,12 @@
     else {
         echo 'No redirect URL!';
     }
+    
+    // Optimally we want this instead
+    // $order = new Utrust\Order(...);
+    // $utrust_client = new Client(API_KEY);
+    // $response = $utrust_client->createOrder($order);
+    // ...
 
     echo 'END';
 ?>
