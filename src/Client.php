@@ -32,34 +32,30 @@
          *
          * @return array Result data with the success or error message.
          */
-        public function execute($method, $endpoint, array $body = [])
+        public function post($endpoint, array $body = [])
         {
             // Check the cURL handle has not already been initiated
-            if ($this->curl_handle === null) {
-
-                // Initiate the cURL handle
+            if ($this->curl_handle === null) {                
+                // Initiate cURL 
                 $this->curl_handle = curl_init();
-
-                // Set initial options
-                curl_setopt_array( $this->curl_handle, array(
-                        CURLOPT_URL => $this->api_url . $endpoint,
-                        CURLOPT_CUSTOMREQUEST => $method,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => "",
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 30,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1
-                    )
-                );
+                
+                // Set options 
+                curl_setopt($this->curl_handle, CURLOPT_URL, $this->api_url . 'stores/orders/');
+                curl_setopt($this->curl_handle, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($this->curl_handle, CURLOPT_MAXREDIRS, 10);
+                curl_setopt($this->curl_handle, CURLOPT_TIMEOUT, 30);
+                curl_setopt($this->curl_handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+                curl_setopt($this->curl_handle, CURLOPT_POST, 1);
+                curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"attributes\": {\n      \"order\": {\n        \"reference\": \"TEST-by-utrust-using-insomnia-NQWRG24\",\n        \"amount\": {\n          \"total\": \"0.99\",\n          \"currency\": \"EUR\",\n          \"details\": {\n            \"subtotal\": \"0.75\",\n\t\t\t\t\t\t\"tax\": \"0.15\",\n            \"shipping\": \"0.10\",\n\t\t\t\t\t\t\"discount\": \"0.01\"\n          }\n        },\n        \"return_urls\": {\n\t\t\t\t\t\"callback_url\": \"http://www.mocky.io/v2/5cf78c36300000f414a37de9\", \n          \"return_url\": \"http://example.com/return\",\n\t\t\t\t\t\"cancel_url\": \"http://example.com/cancel\"\n        },\n        \"line_items\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"sku\": \"AFG1245\",\n\t\t\t\t\t\t\"name\": \"T-shirt\",\n\t\t\t\t\t\t\"price\": \"0.50\",\n\t\t\t\t\t\t\"currency\": \"EUR\",\n\t\t\t\t\t\t\"quantity\": 1\n\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\"sku\": \"AFG12457\",\n\t\t\t\t\t\t\"name\": \"T-shirt old scool\",\n\t\t\t\t\t\t\"price\": \"0.25\",\n\t\t\t\t\t\t\"currency\": \"EUR\",\n\t\t\t\t\t\t\"quantity\": 1\n\t\t\t\t\t}\n\t\t\t\t]\n      },\n      \"customer\": {\n        \"first_name\": \"Antonio\",\n        \"last_name\": \"Coelho\",\n        \"email\": \"daniel@utrust.com\",\n        \"address1\": \"118 Main St\",\n        \"address2\": \"7th Floor\",\n        \"city\": \"New York\",\n        \"state\": \"New York\",\n        \"postcode\": \"10001\",\n        \"country\": \"US\"\n      }\n    }\n  }\n}");
             }
+            
+            // Set headers 
+            $headers = array();
+            $headers[] = 'Authorization: Bearer ' . $this->api_key;
+            $headers[] = 'Content-Type: application/json';
+            curl_setopt($this->curl_handle, CURLOPT_HTTPHEADER, $headers);
 
-            // Set API_KEY header for cURL
-            curl_setopt($this->curl_handle, CURLOPT_HTTPHEADER, array( "Authorization: Bearer $api_key", "Content-Type: application/json"));
-
-            // Set HTTP POST fields for cURL
-            curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, json_encode( $body ) );
-
-            // Execute the cURL session
+            // Execute cURL 
             $response = curl_exec($this->curl_handle);
 
             // Check the response of the cURL session
