@@ -1,0 +1,14 @@
+{
+    "name": "utrust/utrust",
+    "description": "Utrust API library",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Utrust Team",
+            "email": "team@utrust.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
