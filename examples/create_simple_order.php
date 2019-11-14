@@ -1,7 +1,9 @@
 <?php
     require("src/Client.php");
+    require("src/Order.php");
 
     use Utrust\Client;
+    use Utrust\Order;
 
     // Api key for Utrust Test store (sandbox)
     const API_KEY = 'u_test_api_cfda5805-2973-4e86-bd91-d3f042a4bf9d';
@@ -37,31 +39,13 @@
         'email' => 'daniel+php@utrust.com',
     ];
 
-    // Build body
-    $body = [
-        'data' => [
-            'type' => 'orders',
-            'attributes' => [
-                'order' => $order_data,
-                'customer' => $customer_data
-            ]
-        ]
-    ];
+    // Create Order object
+    $order = new Order($order_data, $customer_data);
 
-    // Create Order
-    $result = $utrust_client->post('stores/orders', $body );
+    // Make the API request
+    $redirect_url = $utrust_client->create_order($order);
 
-    if ( isset( $result->data->attributes->redirect_url ) ) {
-        echo $result->data->attributes->redirect_url;
-    }
-    else {
-        echo 'No redirect URL!';
-    }
-    
-    // Optimally we want this instead
-    // $order = new Utrust\Order(...);
-    // $utrust_client = new Client(API_KEY);
-    // $response = $utrust_client->createOrder($order);
-    // ...
+    // Use the $redirect_url to redirect the customer 
+    echo $redirect_url;
 
 

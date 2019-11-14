@@ -25,14 +25,14 @@
         }
 
         /**
-         * Executes a cURL request to the Utrust API.
+         * Executes a POST cURL request to the Utrust API.
          *
          * @param string $method The API method to call.
          * @param array $body The required and optional fields to pass with the method.
          *
          * @return array Result data with the success or error message.
          */
-        public function post($endpoint, array $body = [])
+        private function post($endpoint, array $body = [])
         {
             // Check the cURL handle has not already been initiated
             if ($this->curl_handle === null) {                
@@ -82,5 +82,39 @@
             }
 
             return $result;
+        }
+
+        /**
+         * Creates a Order.
+         *
+         * @param array $order The Order object.
+         * @param array $customer_data The array with the Customer data.
+         *
+         * @return string Result data with the redirect URL or error message.
+         */
+        public function create_order($order) 
+        {
+            $order_data = $order->get_order_data();
+            $customer_data = $order->get_customer_data();
+
+            // Build body
+            $body = [
+                'data' => [
+                    'type' => 'orders',
+                    'attributes' => [
+                        'order' => $order_data,
+                        'customer' => $customer_data
+                    ]
+                ]
+            ];
+            
+            $result = $this->post('stores/orders', $body);
+
+            if ( isset( $result->data->attributes->redirect_url ) ) {
+                return $result->data->attributes->redirect_url;
+            }
+            else {
+                return 'No redirect URL!';
+            }
         }
     }
