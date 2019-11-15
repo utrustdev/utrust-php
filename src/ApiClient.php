@@ -111,10 +111,10 @@
             $response = $this->post('stores/orders', $body);
 
             if ( $response->errors ) {
-                throw new \Exception("Request error: " . print_r ( $response->errors, true ) );
+                throw new \Exception("Exception: Request Error! " . print_r ( $response->errors, true ) );
             }
             elseif ( ! isset( $response->data->attributes->redirect_url ) ) {
-                throw new \Exception("No redirect URL");
+                throw new \Exception("Exception: Missing redirect_url!");
             }
 
             return $response->data;
