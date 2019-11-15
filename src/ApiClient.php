@@ -30,7 +30,7 @@
          * @param string $method The API method to call.
          * @param array $body The required and optional fields to pass with the method.
          *
-         * @return array Result data with the success or error message.
+         * @return array Result with the api response.
          */
         private function post($endpoint, array $body = [])
         {
@@ -92,10 +92,10 @@
          *
          * @return string Result data or error message.
          */
-        public function create_order($order, $customer) 
+        public function createOrder($order, $customer) 
         {
-            $order_data = $order->get_data();
-            $customer_data = $customer->get_data();
+            $order_data = $order->getData();
+            $customer_data = $customer->getData();
 
             // Build body
             $body = [

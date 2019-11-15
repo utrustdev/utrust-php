@@ -16,7 +16,7 @@
          *
          * @return array Order data.
          */
-        public function get_data() {
+        public function getData() {
             return $this->data;
         }
     }

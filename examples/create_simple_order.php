@@ -43,7 +43,7 @@
 
     try {
         // Make the API request
-        $response = $utrust_api->create_order($order, $customer);
+        $response = $utrust_api->createOrder($order, $customer);
 
         // Use the $redirect_url to redirect the customer to our Payment Widget
         echo $response->attributes->redirect_url;
