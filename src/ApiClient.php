@@ -2,25 +2,24 @@
     namespace Utrust;
 
     const SANDBOX_URL = 'https://merchants.api.sandbox-utrust.com/api/';
-    const PRODUCTION = 'production';
     const PRODUCTION_URL = 'https://merchants.api.utrust.com/api/';
 
     class ApiClient
     {
-        private $api_key;
-        private $api_url;
-        private $curl_handle;
+        private $apiKey;
+        private $apiUrl;
+        private $curlHandle;
 
-        public function __construct($api_key, $environment = PRODUCTION)
+        public function __construct($apiKey, $environment = 'production')
         {
-            $this->api_key = $api_key;
-            $this->api_url = ( $environment == PRODUCTION ) ? PRODUCTION_URL: SANDBOX_URL;
-            $this->curl_handle = null;
+            $this->apiKey = $apiKey;
+            $this->apiUrl = ( $environment == PRODUCTION ) ? PRODUCTION_URL: SANDBOX_URL;
+            $this->curlHandle = null;
         }
 
         public function __destruct() {
-            if ($this->curl_handle !== null) {
-                curl_close($this->curl_handle);
+            if ($this->curlHandle !== null) {
+                curl_close($this->curlHandle);
             }
         }
 
@@ -35,32 +34,32 @@
         private function post($endpoint, array $body = [])
         {
             // Check the cURL handle has not already been initiated
-            if ($this->curl_handle === null) {                
+            if ($this->curlHandle === null) {                
                 // Initiate cURL 
-                $this->curl_handle = curl_init();
+                $this->curlHandle = curl_init();
                 
                 // Set options 
-                curl_setopt($this->curl_handle, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($this->curl_handle, CURLOPT_MAXREDIRS, 10);
-                curl_setopt($this->curl_handle, CURLOPT_TIMEOUT, 30);
-                curl_setopt($this->curl_handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-                curl_setopt($this->curl_handle, CURLOPT_POST, 1);
+                curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($this->curlHandle, CURLOPT_MAXREDIRS, 10);
+                curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, 30);
+                curl_setopt($this->curlHandle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+                curl_setopt($this->curlHandle, CURLOPT_POST, 1);
             }
             
             // Set headers 
             $headers = array();
-            $headers[] = 'Authorization: Bearer ' . $this->api_key;
+            $headers[] = 'Authorization: Bearer ' . $this->apiKey;
             $headers[] = 'Content-Type: application/json';
-            curl_setopt($this->curl_handle, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($this->curlHandle, CURLOPT_HTTPHEADER, $headers);
 
             // Set URL
-            curl_setopt($this->curl_handle, CURLOPT_URL, $this->api_url . 'stores/orders/');
+            curl_setopt($this->curlHandle, CURLOPT_URL, $this->apiUrl . 'stores/orders/');
 
             // Set body
-            curl_setopt($this->curl_handle, CURLOPT_POSTFIELDS, json_encode( $body ));
+            curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, json_encode( $body ));
 
             // Execute cURL 
-            $response = curl_exec($this->curl_handle);
+            $response = curl_exec($this->curlHandle);
 
             // Check the response of the cURL session
             if ($response !== FALSE) {
@@ -78,7 +77,7 @@
 
             } else {
                 // Returns the error if the response of the cURL session is false
-                $result = ['errors' => 'cURL error: ' . curl_error($this->curl_handle)];
+                $result = ['errors' => 'cURL error: ' . curl_error($this->curlHandle)];
             }
 
             return $result;                
@@ -94,16 +93,16 @@
          */
         public function createOrder($order, $customer) 
         {
-            $order_data = $order->getData();
-            $customer_data = $customer->getData();
+            $orderData = $order->getData();
+            $customerData = $customer->getData();
 
             // Build body
             $body = [
                 'data' => [
                     'type' => 'orders',
                     'attributes' => [
-                        'order' => $order_data,
-                        'customer' => $customer_data
+                        'order' => $orderData,
+                        'customer' => $customerData
                     ]
                 ]
             ];

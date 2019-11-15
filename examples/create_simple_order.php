@@ -11,7 +11,7 @@
     const API_KEY = 'u_test_api_cfda5805-2973-4e86-bd91-d3f042a4bf9d';
 
     // Init Utrust API
-    $utrust_api = new ApiClient(API_KEY, 'sandbox');
+    $utrustApi = new ApiClient(API_KEY, 'sandbox');
 
     // Build Order object
     $order = new Order([
@@ -43,7 +43,7 @@
 
     try {
         // Make the API request
-        $response = $utrust_api->createOrder($order, $customer);
+        $response = $utrustApi->createOrder($order, $customer);
 
         // Use the $redirect_url to redirect the customer to our Payment Widget
         echo $response->attributes->redirect_url;
