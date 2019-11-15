@@ -7,7 +7,6 @@
 
         public function __construct($data)
         {
-            // Data validations
             $this->data = $data;
         }
 
