@@ -75,13 +75,13 @@
                 } else {
                     $result = ['error' => 'Unable to parse JSON result (' . json_last_error() . ')'];
                 }
-                
+
             } else {
-                // Throw an error if the response of the cURL session is false
-                $result = ['error' => 'cURL error: ' . curl_error($this->curl_handle)];
+                // Returns the error if the response of the cURL session is false
+                $result = ['errors' => 'cURL error: ' . curl_error($this->curl_handle)];
             }
 
-            return $result;
+            return $result;                
         }
 
         /**
@@ -90,7 +90,7 @@
          * @param object $order The Order object.
          * @param object $customer The Customer object.
          *
-         * @return string Result data with the redirect URL or error message.
+         * @return string Result data or error message.
          */
         public function create_order($order, $customer) 
         {
@@ -108,13 +108,15 @@
                 ]
             ];
             
-            $result = $this->post('stores/orders', $body);
+            $response = $this->post('stores/orders', $body);
 
-            if ( isset( $result->data->attributes->redirect_url ) ) {
-                return $result->data->attributes->redirect_url;
+            if ( $response->errors ) {
+                throw new \Exception("Request error: " . print_r ( $response->errors, true ) );
             }
-            else {
-                return 'No redirect URL!';
+            elseif ( ! isset( $response->data->attributes->redirect_url ) ) {
+                throw new \Exception("No redirect URL");
             }
+
+            return $response->data;
         }
     }

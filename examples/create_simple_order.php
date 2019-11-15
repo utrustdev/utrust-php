@@ -41,10 +41,19 @@
         'email' => 'daniel+php@utrust.com',
     ]);
 
-    // Make the API request
-    $redirect_url = $utrust_api->create_order($order, $customer);
+    try {
+        // Make the API request
+        $response = $utrust_api->create_order($order, $customer);
 
-    // Use the $redirect_url to redirect the customer 
-    echo $redirect_url;
+        // Use the $redirect_url to redirect the customer to our Payment Widget
+        echo $response->attributes->redirect_url;
+    }
+    catch(Exception $e) {
+        // Handle error (e.g.: show message to the customer)
+        echo 'Something went wrong: ' . $e->getMessage();
+    }
+
+
+
 
 
