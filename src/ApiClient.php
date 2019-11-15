@@ -5,7 +5,7 @@
     const PRODUCTION = 'production';
     const PRODUCTION_URL = 'https://merchants.api.utrust.com/api/';
 
-    class Client
+    class ApiClient
     {
         private $api_key;
         private $api_url;
@@ -87,15 +87,15 @@
         /**
          * Creates a Order.
          *
-         * @param array $order The Order object.
-         * @param array $customer_data The array with the Customer data.
+         * @param object $order The Order object.
+         * @param object $customer The Customer object.
          *
          * @return string Result data with the redirect URL or error message.
          */
-        public function create_order($order) 
+        public function create_order($order, $customer) 
         {
-            $order_data = $order->get_order_data();
-            $customer_data = $order->get_customer_data();
+            $order_data = $order->get_data();
+            $customer_data = $customer->get_data();
 
             // Build body
             $body = [

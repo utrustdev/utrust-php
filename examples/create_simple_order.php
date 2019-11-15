@@ -1,18 +1,20 @@
 <?php
-    require("src/Client.php");
-    require("src/Order.php");
+    require("src/ApiClient.php");
+    require("src/Resources/Customer.php");
+    require("src/Resources/Order.php");
 
-    use Utrust\Client;
-    use Utrust\Order;
+    use Utrust\ApiClient;
+    use Utrust\Resources\Customer;
+    use Utrust\Resources\Order;
 
     // Api key for Utrust Test store (sandbox)
     const API_KEY = 'u_test_api_cfda5805-2973-4e86-bd91-d3f042a4bf9d';
 
     // Init Utrust API
-    $utrust_client = new Client(API_KEY, 'sandbox');
+    $utrust_api = new ApiClient(API_KEY, 'sandbox');
 
-    // Build order data
-    $order_data = [
+    // Build Order object
+    $order = new Order([
         'reference' => 'REF-12345678',
         'amount' => [
             'total' => '0.99',
@@ -32,18 +34,15 @@
                 'quantity' => 1
             ]
         ]
-    ];
+    ]);
 
-    // Build customer data
-    $customer_data = [
+    // Build Customer object
+    $customer = new Customer([
         'email' => 'daniel+php@utrust.com',
-    ];
-
-    // Create Order object
-    $order = new Order($order_data, $customer_data);
+    ]);
 
     // Make the API request
-    $redirect_url = $utrust_client->create_order($order);
+    $redirect_url = $utrust_api->create_order($order, $customer);
 
     // Use the $redirect_url to redirect the customer 
     echo $redirect_url;
