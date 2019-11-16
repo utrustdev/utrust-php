@@ -1,17 +1,17 @@
 <?php
-require "src/ApiClient.php";
-require "src/Resources/Customer.php";
-require "src/Resources/Order.php";
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
 
 use Utrust\ApiClient;
 use Utrust\Resources\Customer;
 use Utrust\Resources\Order;
 
-// Api key for Utrust Test store (sandbox)
-const API_KEY = 'u_test_api_cfda5805-2973-4e86-bd91-d3f042a4bf9d';
+// Load the env var API_KEY (using phpdotenv package)
+$api_key = getenv('API_KEY');
 
 // Init Utrust API
-$utrustApi = new ApiClient(API_KEY, 'sandbox');
+$utrustApi = new ApiClient($api_key, 'sandbox');
 
 // Build Order object
 $order = new Order([

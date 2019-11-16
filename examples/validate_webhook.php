@@ -1,9 +1,12 @@
 <?php
-require "src/Webhook.php";
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
 
 use Utrust\Webhook;
 
-$webhooksSecret = '...';
+// Load the env var WEBHOOKS_SECRET (using phpdotenv package)
+$webhooksSecret = getenv('WEBHOOKS_SECRET');
 
 // The payload should come from something like:
 // $payload = file_get_contents( 'php://input' );

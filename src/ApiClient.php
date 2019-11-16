@@ -13,7 +13,7 @@ class ApiClient
     public function __construct($apiKey, $environment = 'production')
     {
         $this->apiKey = $apiKey;
-        $this->apiUrl = ($environment == PRODUCTION) ? PRODUCTION_URL : SANDBOX_URL;
+        $this->apiUrl = ($environment == 'production') ? PRODUCTION_URL : SANDBOX_URL;
         $this->curlHandle = null;
     }
 
