@@ -1,21 +1,22 @@
 <?php
-    namespace Utrust\Resources;
+namespace Utrust\Resources;
 
-    class Customer
-    {   
-        private $data;
+class Customer
+{
+    private $data;
 
-        public function __construct($data)
-        {
-            $this->data = $data;
-        }
-
-        /**
-         * Gets Customer data
-         *
-         * @return array Customer data.
-         */
-        public function getData() {
-            return $this->data;
-        }
+    public function __construct($data)
+    {
+        $this->data = $data;
     }
+
+    /**
+     * Gets Customer data
+     *
+     * @return array Customer data.
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+}

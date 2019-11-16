@@ -63,6 +63,6 @@ class Webhook
             return true;
         }
 
-        throw new \Exception("Exception: Invalid signature!");
+        throw new \Exception('Exception: Invalid signature!');
     }
 }
