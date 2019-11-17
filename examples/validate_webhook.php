@@ -19,7 +19,7 @@ try {
     http_response_code(200); // Don't delete this
 
     // Here you can change your Order status
-    echo print_r('Successully validated payload with order reference %s and type %s', $webhook->getOrderReference(), $webhook->getEventType());
+    echo sprintf('Successully validated payload with order reference %s and type %s', $webhook->getOrderReference(), $webhook->getEventType());
 } catch (\Exception $exception) {
     http_response_code(500); // Don't delete this
 

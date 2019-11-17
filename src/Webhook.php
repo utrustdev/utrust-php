@@ -17,7 +17,7 @@ class Webhook
         }
 
         // Make sure it has event type
-        if (!isset($this->payload->event_type)) {
+        if (isset($this->payload->event_type)) {
             $this->eventType = $this->payload->event_type;
         } else {
             throw new \Exception('Exception: Event_type is missing on the payload.' . print_r($this->payload, true));
