@@ -32,6 +32,26 @@ class Webhook
     }
 
     /**
+     * Gets Event Type data
+     *
+     * @return string Event Type data.
+     */
+    public function getEventType()
+    {
+        return $this->eventType;
+    }
+
+    /**
+     * Gets Order Reference data
+     *
+     * @return string Order Reference data.
+     */
+    public function getOrderReference()
+    {
+        return $this->orderReference;
+    }
+
+    /**
      * Verify the incoming webhook notification to make sure it is legit.
      *
      * @since 4.0.0
