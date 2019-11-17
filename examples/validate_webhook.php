@@ -3,6 +3,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
+use Utrust\Resources\Event;
 use Utrust\Webhook;
 
 // Load the env var WEBHOOKS_SECRET (using phpdotenv package)
@@ -14,12 +15,12 @@ $webhooksSecret = getenv('WEBHOOKS_SECRET');
 $payload = "{ \"event_type\": \"ORDER.PAYMENT.CANCELLED\", \"resource\": { \"amount\": \"0.99\", \"currency\": \"EUR\", \"reference\": \"REF-12345678\" }, \"signature\": \"47215d0f4737341f4f1f5fb947b5ebb16af71c1d701800b2ab869890d0ac1c27\", \"state\": \"cancelled\" }";
 
 try {
-    $webhook = new Webhook($payload);
-    $webhook->validate($webhooksSecret);
+    $event = new Event($payload);
+    Webhook::validateEvent($event, $webhooksSecret);
     http_response_code(200); // Don't delete this
 
     // Here you can change your Order status
-    echo sprintf('Successully validated payload with order reference %s and type %s', $webhook->getOrderReference(), $webhook->getEventType());
+    echo sprintf('Successully validated payload with order reference %s and type %s', $event->getOrderReference(), $event->getEventType());
 } catch (\Exception $exception) {
     http_response_code(500); // Don't delete this
 

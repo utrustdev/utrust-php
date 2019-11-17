@@ -3,54 +3,6 @@ namespace Utrust;
 
 class Webhook
 {
-    private $payload = '';
-    private $orderReference = '';
-    private $eventType = '';
-
-    public function __construct($payload)
-    {
-        $this->payload = \json_decode($payload);
-
-        // Make sure it's a valid JSON
-        if (json_last_error()) {
-            throw new \Exception('Exception: Invalid payload provided. No JSON object could be decoded.' . print_r($this->payload, true));
-        }
-
-        // Make sure it has event type
-        if (isset($this->payload->event_type)) {
-            $this->eventType = $this->payload->event_type;
-        } else {
-            throw new \Exception('Exception: Event_type is missing on the payload.' . print_r($this->payload, true));
-        }
-
-        // Make sure it has reference
-        if (isset($this->payload->resource->reference)) {
-            $this->orderReference = $this->payload->resource->reference;
-        } else {
-            throw new \Exception('Exception: Reference is missing on the payload.' . print_r($this->payload, true));
-        }
-    }
-
-    /**
-     * Gets Event Type data
-     *
-     * @return string Event Type data.
-     */
-    public function getEventType()
-    {
-        return $this->eventType;
-    }
-
-    /**
-     * Gets Order Reference data
-     *
-     * @return string Order Reference data.
-     */
-    public function getOrderReference()
-    {
-        return $this->orderReference;
-    }
-
     /**
      * Verify the incoming webhook notification to make sure it is legit.
      *
@@ -59,17 +11,16 @@ class Webhook
      * @param string $request_body The request_body payload from UTRUST.
      * @return bool
      */
-    public function validate($webhooksSecret)
+    public function validateEvent($event, $webhooksSecret)
     {
-        // Get signature from response
-        $signatureFromResponse = $this->payload->signature;
+        $payload = clone $event->getPayload();
 
         // Removes signature from response
-        unset($this->payload->signature);
+        unset($payload->signature);
 
         // Concat keys and values into one string
         $concatedPayload = array();
-        foreach ($this->payload as $key => $value) {
+        foreach ($payload as $key => $value) {
             if (is_object($value)) {
                 foreach ($value as $k => $v) {
                     $concatedPayload[] = $key;
@@ -85,7 +36,7 @@ class Webhook
         $signedPayload = hash_hmac('sha256', $concatedPayload, $webhooksSecret);
 
         // Check if signature is correct
-        if ($signatureFromResponse === $signedPayload) {
+        if ($event->getSignature() === $signedPayload) {
             return true;
         }
 
