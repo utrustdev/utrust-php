@@ -1,5 +1,5 @@
 <?php
-namespace Utrust;
+namespace Utrust\Webhook;
 
 class Event
 {

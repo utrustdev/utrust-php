@@ -4,8 +4,8 @@ $dotenv = Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
 use Utrust\ApiClient;
-use Utrust\Customer;
-use Utrust\Order;
+use Utrust\Store\Customer;
+use Utrust\Store\Order;
 
 // Load the env var API_KEY (using phpdotenv package)
 $api_key = getenv('API_KEY');

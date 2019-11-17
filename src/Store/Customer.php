@@ -1,5 +1,5 @@
 <?php
-namespace Utrust;
+namespace Utrust\Store;
 
 class Customer
 {
