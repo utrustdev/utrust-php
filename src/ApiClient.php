@@ -70,7 +70,7 @@ class ApiClient
             $decoded = json_decode($response);
 
             // Check the json decoding and set an error in the result if it failed
-            if ($decoded !== null && count($decoded)) {
+            if (!empty($decoded)) {
                 $result = $decoded;
             } else {
                 $result = ['error' => 'Unable to parse JSON result (' . json_last_error() . ')'];
