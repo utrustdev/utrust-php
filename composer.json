@@ -11,12 +11,6 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": ">=5.3.0",
-    "vlucas/phpdotenv": "^4.0@dev"
-  },
-  "autoload": {
-    "psr-4": {
-      "Utrust\\": "src"
-    }
+    "php": ">=5.3.0"
   }
 }
