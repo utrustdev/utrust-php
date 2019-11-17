@@ -9,11 +9,25 @@ class Webhook
 
     public function __construct($payload)
     {
-        $this->payload = \json_decode($payload, true);
+        $this->payload = \json_decode($payload);
 
         // Make sure it's a valid JSON
         if (json_last_error()) {
             throw new \Exception('Exception: Invalid payload provided. No JSON object could be decoded.' . print_r($this->payload, true));
+        }
+
+        // Make sure it has event type
+        if (!isset($this->payload->event_type)) {
+            $this->eventType = $this->payload->event_type;
+        } else {
+            throw new \Exception('Exception: Event_type is missing on the payload.' . print_r($this->payload, true));
+        }
+
+        // Make sure it has reference
+        if (isset($this->payload->resource->reference)) {
+            $this->orderReference = $this->payload->resource->reference;
+        } else {
+            throw new \Exception('Exception: Reference is missing on the payload.' . print_r($this->payload, true));
         }
     }
 
@@ -27,19 +41,11 @@ class Webhook
      */
     public function validate($webhooksSecret)
     {
-        // Make sure it has event type
-        if (!isset($this->payload['event_type'])) {
-            throw new \Exception('Exception: Event_type is missing on the payload.' . print_r($this->payload, true));
-        }
-
         // Get signature from response
         $signatureFromResponse = $this->payload->signature;
 
         // Removes signature from response
         unset($this->payload->signature);
-
-        // Sorts response alphabetically by key
-        ksort($this->payload);
 
         // Concat keys and values into one string
         $concatedPayload = array();
