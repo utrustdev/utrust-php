@@ -92,11 +92,8 @@ class ApiClient
      *
      * @return string Result data or error message.
      */
-    public function createOrder($order, $customer)
+    public function createOrder($orderData, $customerData)
     {
-        $orderData = $order->getData();
-        $customerData = $customer->getData();
-
         // Build body
         $body = [
             'data' => [

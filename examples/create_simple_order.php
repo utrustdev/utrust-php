@@ -4,8 +4,7 @@ $dotenv = Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
 use Utrust\ApiClient;
-use Utrust\Store\Customer;
-use Utrust\Store\Order;
+use Utrust\Validator;
 
 // Load the env var API_KEY (using phpdotenv package)
 $api_key = getenv('API_KEY');
@@ -13,8 +12,8 @@ $api_key = getenv('API_KEY');
 // Init Utrust API
 $utrustApi = new ApiClient($api_key, 'sandbox');
 
-// Build Order object
-$order = new Order([
+// Build Order data array
+$orderData = [
     'reference' => 'REF-12345678',
     'amount' => [
         'total' => '0.99',
@@ -34,16 +33,23 @@ $order = new Order([
             'quantity' => 1,
         ],
     ],
-]);
+];
 
-// Build Customer object
-$customer = new Customer([
+// Build Customer data array
+$customerData = [
+    'first_name' => 'Daniel',
+    'last_name' => 'Coelho',
     'email' => 'daniel+php@utrust.com',
-]);
+    'country' => 'PT',
+];
 
 try {
+    // Validate data
+    Validator::order($orderData);
+    Validator::customer($customerData);
+
     // Make the API request
-    $response = $utrustApi->createOrder($order, $customer);
+    //$response = $utrustApi->createOrder($orderData, $customerData);
 
     // Use the $redirect_url to redirect the customer to our Payment Widget
     echo $response->attributes->redirect_url;
