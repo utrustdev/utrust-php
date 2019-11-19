@@ -1,7 +1,7 @@
 <?php
 namespace Utrust;
 
-require_once '../vendor/autoload.php';
+// require_once '../vendor/autoload.php';
 
 use Valitron;
 
@@ -36,7 +36,7 @@ class Validator
         if ($validator->validate()) {
             return true;
         } else {
-            throw new \Exception(print_r($validator->errors()));
+            throw new \Exception(print_r($validator->errors(), true));
         }
     }
 
@@ -90,7 +90,7 @@ class Validator
         if ($validator->validate()) {
             return true;
         } else {
-            throw new \Exception(print_r($validator->errors()));
+            throw new \Exception(print_r($validator->errors(), true));
         }
     }
 }

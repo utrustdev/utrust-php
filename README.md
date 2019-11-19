@@ -43,3 +43,11 @@ $event->validateSignature($webhooksSecret);
 ```
 
 Check the folder `examples` for more info.
+
+## Tests
+
+To run the tests:
+
+```
+composer test
+```

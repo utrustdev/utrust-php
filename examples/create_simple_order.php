@@ -45,11 +45,13 @@ $customerData = [
 
 try {
     // Validate data
-    Validator::order($orderData);
-    Validator::customer($customerData);
+    $orderIsValid = Validator::order($orderData);
+    $customerIsValid = Validator::customer($customerData);
 
     // Make the API request
-    $response = $utrustApi->createOrder($orderData, $customerData);
+    if ($orderIsValid == true || $customerIsValid == true) {
+        $response = $utrustApi->createOrder($orderData, $customerData);
+    }
 
     // Use the $redirect_url to redirect the customer to our Payment Widget
     echo $response->attributes->redirect_url;
