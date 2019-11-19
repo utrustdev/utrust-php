@@ -32,27 +32,44 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run:
+        name: Install Composer
+        command: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
 
-      - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package.json" }}
-            - node-v1-
-      - run: yarn install
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - run:
+        name: Display PHP info
+        command: |
+          php -v
+          php composer.phar --version
 
-      # prepare the database
-      - run: touch storage/testing.sqlite
-      - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      - run:
+        name: Install project dependencies
+        command: php composer.phar install
 
-      # run tests with phpunit or codecept
-      #- run: ./vendor/bin/phpunit
-      - run: ./vendor/bin/codecept build
-      - run: ./vendor/bin/codecept run
+      - run:
+        name: Run Unit tests
+        command: composer test
+      # - save_cache:
+      #     key: v1-dependencies-{{ checksum "composer.json" }}
+      #     paths:
+      #       - ./vendor
+      # - restore_cache:
+      #     keys:
+      #       - node-v1-{{ checksum "package.json" }}
+      #       - node-v1-
+      # - run: yarn install
+      # - save_cache:
+      #     key: node-v1-{{ checksum "package.json" }}
+      #     paths:
+      #       - node_modules
+      # # prepare the database
+      # - run: touch storage/testing.sqlite
+      # - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      # # run tests with phpunit or codecept
+      # #- run: ./vendor/bin/phpunit
+      # - run: ./vendor/bin/codecept build
+      # - run: ./vendor/bin/codecept run
