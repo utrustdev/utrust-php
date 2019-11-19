@@ -1,5 +1,7 @@
 # Utrust PHP
 
+[![CircleCI](https://circleci.com/gh/utrustdev/utrust-php.svg?style=svg)](https://circleci.com/gh/utrustdev/utrust-php)
+
 The official PHP library for the [Utrust API](https://docs.api.utrust.com).
 
 ## Minimum Requirements
