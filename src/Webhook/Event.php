@@ -11,17 +11,17 @@ class Event
 
         // Make sure it's a valid JSON
         if (json_last_error()) {
-            throw new \Exception('Exception: Invalid payload provided. No JSON object could be decoded.' . print_r($this->payload, true));
+            throw new \Exception('Invalid payload provided. No JSON object could be decoded.' . print_r($this->payload, true));
         }
 
         // Make sure it has event type
         if (!isset($this->payload->event_type)) {
-            throw new \Exception('Exception: Event_type is missing on the payload.' . print_r($this->payload, true));
+            throw new \Exception('Event_type is missing on the payload.' . print_r($this->payload, true));
         }
 
         // Make sure it has reference
         if (!isset($this->payload->resource->reference)) {
-            throw new \Exception('Exception: Reference is missing on the payload.' . print_r($this->payload, true));
+            throw new \Exception('Reference is missing on the payload.' . print_r($this->payload, true));
         }
     }
 
@@ -100,6 +100,6 @@ class Event
             return true;
         }
 
-        throw new \Exception('Exception: Invalid signature!');
+        throw new \Exception('Invalid signature!');
     }
 }
