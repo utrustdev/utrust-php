@@ -49,7 +49,7 @@ try {
     Validator::customer($customerData);
 
     // Make the API request
-    //$response = $utrustApi->createOrder($orderData, $customerData);
+    $response = $utrustApi->createOrder($orderData, $customerData);
 
     // Use the $redirect_url to redirect the customer to our Payment Widget
     echo $response->attributes->redirect_url;
