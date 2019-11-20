@@ -25,10 +25,10 @@
   },
   "scripts": {
     "lint": [
-      "./vendor/bin/phpcs --standard=PSR2 src"
+      "./vendor/bin/phpcs --standard=PSR2 src/"
     ],
     "test": [
-      "phpunit tests/*.php"
+      "phpunit tests/"
     ]
   }
 }
