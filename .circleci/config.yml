@@ -41,5 +41,9 @@ jobs:
           command: php composer.phar install
 
       - run:
+          name: Run Linter
+          command: composer lint
+
+      - run:
           name: Run Unit tests
           command: composer test
