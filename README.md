@@ -81,7 +81,7 @@ composer test
 
 This library was wrriten and it's maintained by the Utrust development team.
 We have now opened it to the world so that the community using this plugin may have the chance of shaping its development.
-You can contribute by simply letting us know your suggestions or any problems that you find [by opening an issue on GitHub[https://github.com/utrustdev/utrust-php/issues/new].
+You can contribute by simply letting us know your suggestions or any problems that you find [by opening an issue on GitHub](https://github.com/utrustdev/utrust-php/issues/new).
 You can also fork the repository on GitHub and open a pull request for the `master` branch with your missing features and/or bug fixes.
 Please make sure the new code follows the same style and conventions as already written code.
 Our team is eager to welcome new contributors into the mix :blush:.
