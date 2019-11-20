@@ -75,7 +75,6 @@ class ApiClient
             } else {
                 $result = ['error' => 'Unable to parse JSON result (' . json_last_error() . ')'];
             }
-
         } else {
             // Returns the error if the response of the cURL session is false
             $result = ['errors' => 'cURL error: ' . curl_error($this->curlHandle)];

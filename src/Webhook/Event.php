@@ -11,7 +11,8 @@ class Event
 
         // Make sure it's a valid JSON
         if (json_last_error()) {
-            throw new \Exception('Invalid payload provided. No JSON object could be decoded.' . print_r($this->payload, true));
+            throw new \Exception('Invalid payload provided. No JSON object could be decoded.'
+                . print_r($this->payload, true));
         }
 
         // Make sure it has event type
