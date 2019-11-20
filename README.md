@@ -59,9 +59,18 @@ $event->validateSignature($webhooksSecret);
 
 Check the folder `examples/` for more info.
 
+## Lint
+
+The project is using [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) with PSR-2 coding stardard.
+To run the linter:
+
+```
+composer lint
+```
+
 ## Tests
 
-The project is using PHPUnit for testing classes.
+The project is using [PHPUnit](https://phpunit.de/) for testing classes.
 To run the tests:
 
 ```
