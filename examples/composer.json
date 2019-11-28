@@ -1,0 +1,21 @@
+{
+  "name": "utrust/examples",
+  "description": "Examples using Utrust PHP",
+  "type": "project",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Utrust Team",
+      "email": "team@utrust.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Utrust\\": "../src/"
+    }
+  },
+  "require": {
+    "vlucas/phpdotenv": "^4.0@dev"
+  }
+}
