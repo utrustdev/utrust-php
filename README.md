@@ -100,6 +100,17 @@ composer lint
 When in doubt whether you introduced a linter error, check the build for `master` in
 [CircleCI](https://circleci.com/gh/utrustdev/utrust-php).
 
+## Publish
+
+We are publishing the library to [Packagist](https://packagist.org/packages/utrust/utrust).
+We are using [semantic versioning](https://semver.org) to keep track of package changes.
+To publish a new package version run the following commands:
+
+```
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ## License
 
 Utrust PHP is maintained with :purple_heart: by the Utrust development team,
