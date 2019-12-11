@@ -74,6 +74,10 @@ class Event
      */
     public function validateSignature($webhooksSecret)
     {
+        if ($webhooksSecret == null) {
+            throw new \Exception('Webhooks Secret cant be NULL!');
+        }
+
         $payload = clone $this->payload;
 
         // Removes signature from response
@@ -91,13 +95,10 @@ class Event
                 $concatedPayload[] = $key . $value;
             }
         }
-        
         // Sort array alphabetically
         ksort($concatedPayload);
-        
         // Concat the array
         $concatedPayload = join('', $concatedPayload);
-        
         // Sign string with HMAC SHA256
         $signedPayload = hash_hmac('sha256', $concatedPayload, $webhooksSecret);
 
