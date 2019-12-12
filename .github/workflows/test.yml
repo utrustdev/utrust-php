@@ -1,0 +1,31 @@
+name: Test Suite
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: composer:1.9
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Display PHP and Composer info
+        run: |
+          php -v
+          composer --version
+
+      - name: Install project dependencies
+        run: composer install
+
+      - name: Run Linter
+        run: composer lint
+
+      - name: Run Unit tests
+        run: composer test
