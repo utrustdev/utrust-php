@@ -21,7 +21,7 @@ try {
     // Here you can change your Order status
     echo sprintf('Successully validated payload with order reference %s and type %s', $event->getOrderReference(), $event->getEventType());
 } catch (\Exception $exception) {
-    http_response_code(500); // Don't delete this
+    http_response_code(400); // Don't delete this
 
     // Handle webhook error
     echo 'Error: ' . $exception->getMessage();
