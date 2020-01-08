@@ -9,10 +9,9 @@
       "email": "team@utrust.com"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.0",
-    "vlucas/valitron": "dev-master"
+    "vlucas/valitron": "^1.4.7"
   },
   "require-dev": {
     "phpunit/phpunit": "^8",
