@@ -106,7 +106,7 @@ class ApiClient
 
         $response = $this->post('stores/orders', $body);
 
-        if ($response->errors) {
+        if (isset($response->errors)) {
             throw new \Exception('Exception: Request Error! ' . print_r($response->errors, true));
         } elseif (!isset($response->data->attributes->redirect_url)) {
             throw new \Exception('Exception: Missing redirect_url!');
