@@ -70,7 +70,9 @@ class Event
      * Verify the incoming webhook notification to make sure it is legit.
      *
      * @param string $webhooksSecret The Webhooks Secret from Utrust Merchant dashboard.
+     *
      * @return bool
+     * @throws Exception
      */
     public function validateSignature($webhooksSecret)
     {

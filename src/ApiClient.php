@@ -89,9 +89,10 @@ class ApiClient
      * @param object $order The Order object.
      * @param object $customer The Customer object.
      *
-     * @return string Result data or error message.
+     * @return string|object Response data.
+     * @throws Exception
      */
-    public function createOrder($orderData, $customerData)
+    public function createOrder($orderData, $customerData): ?object
     {
         // Build body
         $body = [
