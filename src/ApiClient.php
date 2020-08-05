@@ -66,7 +66,7 @@ class ApiClient
         if ($response !== false) {
             $result = false;
 
-            // Prepare JSON result
+            // Prepare JSON result to object stdClass
             $decoded = json_decode($response);
 
             // Check the json decoding and set an error in the result if it failed
@@ -92,7 +92,7 @@ class ApiClient
      * @return string|object Response data.
      * @throws Exception
      */
-    public function createOrder($orderData, $customerData): ?object
+    public function createOrder($orderData, $customerData)
     {
         // Build body
         $body = [
