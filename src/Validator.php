@@ -7,7 +7,7 @@ use Valitron;
 
 class Validator
 {
-    public function customer($data)
+    public static function customer($data)
     {
         $validator = new Valitron\Validator($data);
 
@@ -40,7 +40,7 @@ class Validator
         }
     }
 
-    public function order($data)
+    public static function order($data)
     {
         $validator = new Valitron\Validator($data);
 

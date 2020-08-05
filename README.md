@@ -117,4 +117,4 @@ Utrust PHP is maintained with :purple_heart: by the Utrust development team,
 and is available to the public under the GNU GPLv3 license.
 Please see [LICENSE](https://github.com/utrustdev/utrust-php/blob/master/LICENSE) for further details.
 
-&copy; Utrust 2019
+&copy; Utrust 2020
