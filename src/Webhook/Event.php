@@ -51,7 +51,7 @@ class Event
      *
      * @return string Order amount.
      */
-    public function getOrderAmount() 
+    public function getOrderAmount()
     {
         return $this->payload->resource->amount;
     }
