@@ -47,6 +47,16 @@ class Event
     }
 
     /**
+     * Gets Order amount
+     *
+     * @return string Order amount.
+     */
+    public function getOrderAmount()
+    {
+        return $this->payload->resource->amount;
+    }
+
+    /**
      * Gets Signature data
      *
      * @return string Signature data.
