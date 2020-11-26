@@ -24,16 +24,17 @@ Creating a new Order:
 
 ```php
 use Utrust\ApiClient;
-use Utrust\Store\Customer;
-use Utrust\Store\Order;
 
-$order = new Order([...]);
-$customer = new Customer([...]);
+$utrustApi = new ApiClient('API_KEY');
 
-$utrust_api = new ApiClient('API_KEY');
-$response = $utrust_api->createOrder($order, $customer);
+$orderData = [...];
+$customerData = [...];
+
+$response = $utrustApi->createOrder($orderData, $customerData);
 echo $response->attributes->redirect_url;
 ```
+
+Check the full example [here](https://github.com/utrustdev/utrust-php/blob/master/examples/create_simple_order.php).
 
 ### Validations
 
