@@ -25,6 +25,26 @@ class WebhookTest extends TestCase
         $event = new Event($invalidPayload);
     }
 
+    public function testInvalidPayloadMissingAmount(): void
+    {
+        $invalidPayload = "{ \"event_type\": \"ORDER.PAYMENT.CANCELLED\", \"resource\": { \"currency\": \"EUR\", \"reference\": \"REF-12345678\" }, \"signature\": \"bb32374545004b5f4a1264a8e8e78e3357e27a35a8a3b334fe1a2a47b60a35ba\", \"state\": \"cancelled\" }";
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Amount is missing on the payload.');
+
+        $event = new Event($invalidPayload);
+    }
+
+    public function testInvalidPayloadMissingCurrency(): void
+    {
+        $invalidPayload = "{ \"event_type\": \"ORDER.PAYMENT.CANCELLED\", \"resource\": { \"amount\": \"0.99\", \"reference\": \"REF-12345678\" }, \"signature\": \"bb32374545004b5f4a1264a8e8e78e3357e27a35a8a3b334fe1a2a47b60a35ba\", \"state\": \"cancelled\" }";
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Currency is missing on the payload.');
+
+        $event = new Event($invalidPayload);
+    }
+
     public function testInvalidPayloadMissingReference(): void
     {
         $invalidPayload = "{ \"event_type\": \"ORDER.PAYMENT.CANCELLED\", \"resource\": { \"amount\": \"0.99\", \"currency\": \"EUR\" }, \"signature\": \"1234-this-is-an-invalid-signature-1234\", \"state\": \"cancelled\" }";
