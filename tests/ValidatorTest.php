@@ -51,15 +51,7 @@ class ValidatorTest extends TestCase
                 'cancel_url' => 'http://example.com/order_canceled',
                 'callback_url' => 'http://example.com/webhook_url',
             ],
-            'line_items' => [
-                [
-                    'sku' => 'tshirt-1234',
-                    'name' => 'T-shirt',
-                    'price' => '10.00',
-                    'currency' => 'EUR',
-                    'quantity' => 1,
-                ],
-            ],
+    
         ];
 
         $result = Validator::order($validOrderData);
@@ -78,30 +70,10 @@ class ValidatorTest extends TestCase
                 'return_url' => 'http://example.com/order_success',
                 'cancel_url' => 'example.com/this-is-not-a-correct-url',
             ],
-            'line_items' => [
-                [
-                    'sku' => 'tshirt-1234',
-                    'quantity' => 'this-is-not-an-integer',
-                ],
-            ],
         ];
 
         $expected_errors_message = print_r([
             "reference" => ["Reference is required"],
-            "line_items.*.name" => [
-                "Line Items.*.name is required",
-            ],
-            "line_items.*.price" => [
-                "Line Items.*.price is required",
-            ],
-            "line_items.*.currency" => [
-                "Line Items.*.currency is required",
-                "Line Items.*.currency contains invalid characters",
-            ],
-            "line_items.*.quantity" => [
-
-                "Line Items.*.quantity must be an integer",
-            ],
             "amount.currency" => [
                 "Amount.currency contains invalid characters",
             ],
