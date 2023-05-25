@@ -24,15 +24,6 @@ $orderData = [
         'cancel_url' => 'http://example.com/order_canceled',
         'callback_url' => 'http://example.com/webhook_url',
     ],
-    'line_items' => [
-        [
-            'sku' => 'tshirt-1234',
-            'name' => 'T-shirt',
-            'price' => '10.00',
-            'currency' => 'EUR',
-            'quantity' => 1,
-        ],
-    ],
 ];
 
 // Build Customer data array
