@@ -1,8 +1,8 @@
 <?php
 namespace Utrust;
 
-const SANDBOX_URL = 'https://merchants.api.sandbox-utrust.com/api/';
-const PRODUCTION_URL = 'https://merchants.api.utrust.com/api/';
+const SANDBOX_URL = 'https://merchants.api.sandbox.crypto.xmoney.com/api/';
+const PRODUCTION_URL = 'https://merchants.api.crypto.xmoney.com/api/';
 
 class ApiClient
 {
