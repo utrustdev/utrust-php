@@ -1,8 +1,8 @@
-# Utrust PHP
+# xMoney Crypto PHP
 
 ![Test Suite](https://github.com/utrustdev/utrust-php/workflows/Test%20Suite/badge.svg)
 
-The official PHP library for the [Utrust API](https://docs.api.utrust.com).
+The official PHP library for the [xMoney Crypto API](https://docs.crypto.xmoney.com/).
 
 ## Minimum Requirements
 
@@ -114,8 +114,8 @@ git push origin v1.0.0
 
 ## License
 
-Utrust PHP is maintained with :purple_heart: by the Utrust development team,
+xMoney Crypto PHP is maintained with :purple_heart: by the xMoney development team,
 and is available to the public under the GNU GPLv3 license.
 Please see [LICENSE](https://github.com/utrustdev/utrust-php/blob/master/LICENSE) for further details.
 
-&copy; Utrust 2020
+&copy; Utrust 2024
