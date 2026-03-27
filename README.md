@@ -90,7 +90,7 @@ When in doubt whether you caused a test to fail, check the build for `master` in
 
 ### Lint
 
-This project uses [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) with PSR-2 coding stardard.
+This project uses [PHPCodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer) with PSR-2 coding stardard.
 
 Before contributing your changes, make sure it passes on the linter:
 
